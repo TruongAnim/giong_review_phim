@@ -1,7 +1,8 @@
 import 'package:get/get.dart';
 import 'package:giongreviewphim/bindings/content_binding.dart';
-import 'package:giongreviewphim/content_screen.dart';
-import 'package:giongreviewphim/result_screen.dart';
+import 'package:giongreviewphim/bindings/result_binding.dart';
+import 'package:giongreviewphim/views.dart/content_screen.dart';
+import 'package:giongreviewphim/views.dart/result_screen.dart';
 
 class PageRouter {
   static String contentScreen = '/content';
@@ -10,8 +11,11 @@ class PageRouter {
   static List<GetPage> listPage = [
     GetPage(
         name: contentScreen,
-        page: () => ContentScreen(),
+        page: () => const ContentScreen(),
         binding: ContentBinding()),
-    // GetPage(name: '/result', page: () => ResultScreen()),
+    GetPage(
+        name: resultScreen,
+        page: () => const ResultScreen(),
+        binding: ResultBinding()),
   ];
 }

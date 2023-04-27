@@ -11,6 +11,7 @@ class ContentController extends GetxController {
     if (text.isEmpty) {
       Get.showSnackbar(GetSnackBar(
         title: 'Content is empty!',
+        message: 'Paste your content to text field above.',
         duration: Duration(seconds: 2),
       ));
       return;

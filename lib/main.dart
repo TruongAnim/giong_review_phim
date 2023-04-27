@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:get/get.dart';
-import 'package:giongreviewphim/content_screen.dart';
+import 'package:giongreviewphim/views.dart/content_screen.dart';
 import 'package:giongreviewphim/page_router.dart';
 
 void main() async {
@@ -23,7 +23,6 @@ class MyApp extends StatelessWidget {
       title: _title,
       theme: ThemeData.light(),
       darkTheme: ThemeData.dark(),
-      // home: ContentScreen(),
       getPages: PageRouter.listPage,
       initialRoute: PageRouter.contentScreen,
     );

@@ -14,12 +14,14 @@ class ContentScreen extends StatefulWidget {
 
 class _ContentScreenState extends State<ContentScreen> {
   late ContentController _contentController;
+  late TextEditingController _editingController;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     _contentController = Get.find();
+    _editingController = TextEditingController();
   }
 
   @override
@@ -30,7 +32,8 @@ class _ContentScreenState extends State<ContentScreen> {
         isLoading: false,
         child: SingleChildScrollView(
           child: Column(children: [
-            const TextField(
+            TextField(
+              controller: _editingController,
               maxLines: null, // allows for unlimited lines
               keyboardType:
                   TextInputType.multiline, // allows for multiline input
@@ -40,7 +43,10 @@ class _ContentScreenState extends State<ContentScreen> {
               ),
             ),
             ElevatedButton(
-                onPressed: () {}, child: const Text('Convert to mp3'))
+                onPressed: () {
+                  _contentController.processing(_editingController.text);
+                },
+                child: const Text('Convert to mp3'))
           ]),
         ),
       ),

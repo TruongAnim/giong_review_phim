@@ -19,8 +19,10 @@ class _ResultScreenState extends State<ResultScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text(data['url']),
+    return Scaffold(
+      body: Center(
+        child: Text(data['url']),
+      ),
     );
   }
 }
