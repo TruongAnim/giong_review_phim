@@ -8,7 +8,7 @@ enum ContentState { ready, processing }
 
 class ContentController extends GetxController {
   final Rx<ContentState> _state = Rx<ContentState>(ContentState.ready);
-  final String apiKey = 'onSMw1mVr07YCxpxuWhXVNtLrh7hJPT';
+  final String apiKey = 'onSMw1mVr07YCxpxuWhXVNtLrh7hJPTS';
   final String apiEndpoint = 'https://api.fpt.ai/hmi/tts/v5';
 
   ContentState get state => _state.value;

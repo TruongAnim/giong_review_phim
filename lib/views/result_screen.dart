@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:giongreviewphim/common_widgets/audio_player.dart';
 
 class ResultScreen extends StatefulWidget {
   const ResultScreen({super.key});
@@ -21,7 +22,7 @@ class _ResultScreenState extends State<ResultScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text(data['url']),
+        child: AudioPlayerWidget(url: data['url']),
       ),
     );
   }
