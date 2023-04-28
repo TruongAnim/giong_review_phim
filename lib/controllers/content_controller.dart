@@ -8,10 +8,23 @@ enum ContentState { ready, processing }
 
 class ContentController extends GetxController {
   final Rx<ContentState> _state = Rx<ContentState>(ContentState.ready);
+  final Rx<String> _voice = Rx<String>('banmai');
+  final Rx<String> _speed = Rx<String>('0');
+
   final String apiKey = 'onSMw1mVr07YCxpxuWhXVNtLrh7hJPTS';
   final String apiEndpoint = 'https://api.fpt.ai/hmi/tts/v5';
 
   ContentState get state => _state.value;
+  String get voice => _voice.value;
+  String get speed => _speed.value;
+
+  void updateVoice(String voice) {
+    _voice.value = voice;
+  }
+
+  void updateSpeed(String speed) {
+    _speed.value = speed;
+  }
 
   void processing(String text) async {
     text = text.trim();
