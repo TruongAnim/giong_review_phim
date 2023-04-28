@@ -45,6 +45,7 @@ class _ContentScreenState extends State<ContentScreen> {
               ),
               ElevatedButton(
                   onPressed: () {
+                    print(_editingController.text);
                     _contentController.processing(_editingController.text);
                   },
                   child: const Text('Convert to mp3'))

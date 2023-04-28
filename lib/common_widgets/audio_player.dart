@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:giongreviewphim/common_widgets/download_file.dart';
 
 class AudioPlayerWidget extends StatefulWidget {
   final String url;
@@ -20,6 +21,7 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
   void initState() {
     super.initState();
     _audioPlayer = AudioPlayer();
+    _audioPlayer.setSource(UrlSource(widget.url));
     _audioPlayer.onDurationChanged.listen((Duration duration) {
       setState(() {
         _duration = duration;
@@ -31,29 +33,24 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
       });
     });
     _audioPlayer.onPlayerStateChanged.listen((PlayerState state) {
-      setState(() {
-        _isPlaying = state == PlayerState.playing;
-      });
+      if (mounted) {
+        setState(() {
+          _isPlaying = state == PlayerState.playing;
+        });
+      }
     });
   }
 
   @override
   void dispose() {
-    _audioPlayer.dispose();
+    print('dispose1');
+    _audioPlayer.release();
+    print('dispose2');
     super.dispose();
   }
 
   void _play() async {
-    await _audioPlayer.play(UrlSource(widget.url));
-  }
-
-  void test(AudioCache cache) async {
-    String dir = await cache.getTempDir();
-    String uri = await cache.prefix;
-    print(dir);
-    print(uri);
-    print(cache.loadedFiles);
-    print("load oke");
+    await _audioPlayer.resume();
   }
 
   void _pause() async {
@@ -90,6 +87,10 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
               onPressed: _isPlaying ? _pause : null,
             ),
           ],
+        ),
+        // DownloadFileWidget(url: widget.url),
+        DownloadScreen(
+          url: widget.url,
         ),
       ],
     );
