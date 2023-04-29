@@ -30,18 +30,12 @@ environment:
 dependencies:
   android_path_provider: ^0.3.0
   audioplayers: ^4.0.1
-  device_info_plus: ^8.0.0
   dropdown_button2: ^2.1.0
   flutter:
     sdk: flutter
-  flutter_downloader: ^1.10.2
-  flutter_xlider: ^3.5.0
   get: ^4.6.5
   http: ^0.13.5
-  open_file: ^3.3.1
   path_provider: ^2.0.11
-  permission_handler: ^10.0.0
-  video_player: ^2.6.1
 
 dev_dependencies:
   flutter_test:
