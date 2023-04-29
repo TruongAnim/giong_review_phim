@@ -10,20 +10,20 @@ enum ContentState { ready, processing }
 class ContentController extends GetxController {
   final Rx<ContentState> _state = Rx<ContentState>(ContentState.ready);
   final Rx<String> _voice = Rx<String>('banmai');
-  final Rx<double> _speed = Rx<double>(0);
+  final Rx<String> _speed = Rx<String>('0');
 
   final String apiKey = 'onSMw1mVr07YCxpxuWhXVNtLrh7hJPTS';
   final String apiEndpoint = 'https://api.fpt.ai/hmi/tts/v5';
 
   ContentState get state => _state.value;
   String get voice => _voice.value;
-  double get speed => _speed.value;
+  String get speed => _speed.value;
 
   void updateVoice(String voice) {
     _voice.value = voice;
   }
 
-  void updateSpeed(double speed) {
+  void updateSpeed(String speed) {
     _speed.value = speed;
   }
 
@@ -38,13 +38,13 @@ class ContentController extends GetxController {
       return;
     }
     _state.value = ContentState.processing;
-    // await Future.delayed(const Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 30));
     Map<String, String> result = await requestFptAi(text);
     if (result.containsKey('error')) {
       Get.showSnackbar(GetSnackBar(
         title: 'Convert fail!',
         message: result['error'],
-        duration: Duration(seconds: 2),
+        duration: const Duration(seconds: 2),
       ));
     } else {
       String url = result['url']!;
@@ -61,7 +61,7 @@ class ContentController extends GetxController {
         Uri.parse(apiEndpoint),
         headers: {
           'api-key': apiKey,
-          'speed': speed.toString(),
+          'speed': speed,
           'voice': voice,
           'Content-Type': 'application/json',
         },
@@ -91,7 +91,7 @@ class ContentController extends GetxController {
       } catch (_) {
         // Ignore error and try again
       }
-      await Future.delayed(Duration(seconds: 1));
+      await Future.delayed(const Duration(seconds: 1));
     }
   }
 }

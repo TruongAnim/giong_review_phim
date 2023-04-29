@@ -20,21 +20,32 @@ class LoadingOverlay extends StatelessWidget {
             ),
           ),
         if (isLoading)
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Center(
-                child: CircularProgressIndicator(),
+          Center(
+            child: Container(
+              width: 270,
+              height: 270,
+              decoration: BoxDecoration(
+                  color: Colors.white, borderRadius: BorderRadius.circular(25)),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Text(
+                    'Đang chuyển đổi giọng nói...',
+                    style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.blue,
+                        fontWeight: FontWeight.bold),
+                  )
+                ],
               ),
-              SizedBox(
-                height: 30,
-              ),
-              Text(
-                'Đang chuyển đổi giọng nói...',
-                style: TextStyle(fontSize: 20, color: Colors.blue),
-              )
-            ],
+            ),
           )
       ],
     );

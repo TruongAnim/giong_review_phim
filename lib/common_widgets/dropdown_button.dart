@@ -47,9 +47,16 @@ class _DropdownOptionsState extends State<DropdownOptions> {
         onChanged: (value) {
           widget.onChange(value!);
         },
-        buttonStyleData: const ButtonStyleData(
-          height: 40,
-          width: 140,
+        buttonStyleData: ButtonStyleData(
+          height: 50,
+          width: double.infinity,
+          padding: const EdgeInsets.only(left: 14, right: 14),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(25),
+            border: Border.all(
+              color: Colors.black26,
+            ),
+          ),
         ),
         menuItemStyleData: const MenuItemStyleData(
           height: 40,

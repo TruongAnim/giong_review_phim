@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:giongreviewphim/models/options.dart';
 
 class Constants {
@@ -8,12 +9,18 @@ class Constants {
     Option(text: 'Gia Huy', value: 'giahuy'),
   ];
   static List<Option> speed = [
-    Option(text: 'Chậm -3', value: '-3'),
-    Option(text: '-2', value: '-2'),
-    Option(text: '-1', value: '-1'),
-    Option(text: 'Bình thường 0', value: '0'),
-    Option(text: '1', value: '1'),
-    Option(text: '2', value: '2'),
-    Option(text: 'Nhanh 3', value: '3'),
+    Option(text: 'Rất chậm', value: '-3'),
+    Option(text: 'Chậm', value: '-2'),
+    Option(text: 'Hơi chậm', value: '-1'),
+    Option(text: 'Bình thường', value: '0'),
+    Option(text: 'Hơi nhanh', value: '1'),
+    Option(text: 'Nhanh', value: '2'),
+    Option(text: 'Rất nhanh', value: '3'),
   ];
 }
+
+const Color backgroundColor2 = Color(0xFF17203A);
+const Color backgroundColorLight = Color(0xFFF2F6FF);
+const Color backgroundColorDark = Color(0xFF25254B);
+const Color shadowColorLight = Color(0xFF4A5367);
+const Color shadowColorDark = Colors.black;
