@@ -35,6 +35,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_downloader: ^1.10.2
+  flutter_xlider: ^3.5.0
   get: ^4.6.5
   http: ^0.13.5
   open_file: ^3.3.1

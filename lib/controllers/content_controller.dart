@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ffi';
 
 import 'package:get/get.dart';
 import 'package:giongreviewphim/page_router.dart';
@@ -9,20 +10,20 @@ enum ContentState { ready, processing }
 class ContentController extends GetxController {
   final Rx<ContentState> _state = Rx<ContentState>(ContentState.ready);
   final Rx<String> _voice = Rx<String>('banmai');
-  final Rx<String> _speed = Rx<String>('0');
+  final Rx<double> _speed = Rx<double>(0);
 
   final String apiKey = 'onSMw1mVr07YCxpxuWhXVNtLrh7hJPTS';
   final String apiEndpoint = 'https://api.fpt.ai/hmi/tts/v5';
 
   ContentState get state => _state.value;
   String get voice => _voice.value;
-  String get speed => _speed.value;
+  double get speed => _speed.value;
 
   void updateVoice(String voice) {
     _voice.value = voice;
   }
 
-  void updateSpeed(String speed) {
+  void updateSpeed(double speed) {
     _speed.value = speed;
   }
 
@@ -60,11 +61,12 @@ class ContentController extends GetxController {
         Uri.parse(apiEndpoint),
         headers: {
           'api-key': apiKey,
-          'speed': '0',
-          'voice': 'banmai',
+          'speed': speed.toString(),
+          'voice': voice,
           'Content-Type': 'application/json',
         },
-        body: jsonEncode({'text': text}),
+        // body: jsonEncode({'text': text}),
+        body: text,
       );
       final data = jsonDecode(response.body);
       if (response.statusCode == 200) {

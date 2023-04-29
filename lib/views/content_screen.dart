@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:giongreviewphim/common_widgets/dropdown_button.dart';
 import 'package:giongreviewphim/common_widgets/loading_overlay.dart';
+import 'package:giongreviewphim/common_widgets/seekbar_custom.dart';
 import 'package:giongreviewphim/constants.dart';
 import 'package:giongreviewphim/controllers/content_controller.dart';
+import 'package:giongreviewphim/models/convert_job.dart';
 import 'package:http/http.dart';
 
 class ContentScreen extends StatefulWidget {
@@ -54,10 +56,15 @@ class _ContentScreenState extends State<ContentScreen> {
                 options: Constants.voice,
                 onChange: (value) => _contentController.updateVoice(value),
               ),
-              DropdownOptions(
+              // DropdownOptions(
+              //   value: _contentController.speed,
+              //   options: Constants.speed,
+              //   onChange: (value) => _contentController.updateSpeed(value),
+              // ),
+              SeekbarCustom(
                 value: _contentController.speed,
-                options: Constants.speed,
-                onChange: (value) => _contentController.updateSpeed(value),
+                onDragging: (p0, start, end) =>
+                    _contentController.updateSpeed(start),
               ),
               ElevatedButton(
                 onPressed: () {
