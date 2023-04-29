@@ -50,7 +50,7 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
   }
 
   void _play() async {
-    await _audioPlayer.resume();
+    await _audioPlayer.play(UrlSource(widget.url));
   }
 
   void _pause() async {
