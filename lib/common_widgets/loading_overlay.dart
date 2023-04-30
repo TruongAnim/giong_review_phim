@@ -12,7 +12,7 @@ class LoadingOverlay extends StatelessWidget {
       children: [
         child,
         if (isLoading)
-          Opacity(
+          const Opacity(
             opacity: 0.5, // Set the opacity here
             child: ModalBarrier(
               color: Colors.grey, // You can set the color to whatever you like
@@ -29,7 +29,7 @@ class LoadingOverlay extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [
+                children: const [
                   Center(
                     child: CircularProgressIndicator(),
                   ),

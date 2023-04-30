@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
-import 'package:giongreviewphim/common_widgets/download_file.dart';
+import 'package:giongreviewphim/utils.dart';
 
 class AudioPlayerWidget extends StatefulWidget {
   final String url;
@@ -13,8 +13,8 @@ class AudioPlayerWidget extends StatefulWidget {
 
 class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
   late AudioPlayer _audioPlayer;
-  Duration _duration = Duration();
-  Duration _position = Duration();
+  Duration _duration = const Duration();
+  Duration _position = const Duration();
   bool _isPlaying = false;
 
   @override
@@ -43,9 +43,7 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
 
   @override
   void dispose() {
-    print('dispose1');
     _audioPlayer.release();
-    print('dispose2');
     super.dispose();
   }
 
@@ -64,6 +62,90 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      children: [
+        Expanded(
+          child: Center(
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                CircularProgressIndicator(
+                  value: _position.inSeconds / _duration.inSeconds,
+                  backgroundColor: Colors.grey[300],
+                  valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+                ),
+                IconButton(
+                  iconSize: 64,
+                  icon: Icon(
+                    _isPlaying ? Icons.pause : Icons.play_arrow,
+                    color: Colors.blue,
+                  ),
+                  onPressed: () {
+                    if (_isPlaying) {
+                      _pause();
+                    } else {
+                      _play();
+                    }
+                  },
+                ),
+              ],
+            ),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(vertical: 16),
+          child: Text(
+            "Song Title",
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 18,
+            ),
+          ),
+        ),
+        Text(
+          "Artist Name",
+          style: TextStyle(
+            color: Colors.grey[600],
+          ),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Padding(
+              padding: EdgeInsets.only(left: 16),
+              child: Text(
+                "0:00",
+                style: TextStyle(
+                  color: Colors.grey[600],
+                ),
+              ),
+            ),
+            Expanded(
+              child: Slider(
+                value: _position.inSeconds.toDouble(),
+                min: 0,
+                max: _duration.inSeconds.toDouble(),
+                onChanged: (value) {
+                  _seekTo(Duration(seconds: value.toInt()));
+                },
+                activeColor: Colors.blue,
+                inactiveColor: Colors.grey[300],
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(right: 16),
+              child: Text(
+                Utils.durationToString(_duration),
+                style: TextStyle(
+                  color: Colors.grey[600],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+
+    Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text('${_position.inSeconds} / ${_duration.inSeconds} seconds'),
@@ -79,18 +161,14 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             IconButton(
-              icon: Icon(Icons.play_arrow),
+              icon: const Icon(Icons.play_arrow),
               onPressed: _isPlaying ? null : _play,
             ),
             IconButton(
-              icon: Icon(Icons.pause),
+              icon: const Icon(Icons.pause),
               onPressed: _isPlaying ? _pause : null,
             ),
           ],
-        ),
-        // DownloadFileWidget(url: widget.url),
-        DownloadScreen(
-          url: widget.url,
         ),
       ],
     );

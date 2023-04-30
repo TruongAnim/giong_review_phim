@@ -38,6 +38,7 @@ dependencies:
   path_provider: ^2.0.11
   rive: ^0.9.1
   flutter_svg: ^1.1.6
+  google_fonts: ^4.0.4
 
 dev_dependencies:
   flutter_test:

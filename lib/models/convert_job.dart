@@ -1,7 +1,7 @@
 class ConvertJob {
-  String text;
+  final String url;
   final String voice;
-  final double speed;
+  final String speed;
 
-  ConvertJob({required this.text, required this.voice, required this.speed});
+  ConvertJob({required this.url, required this.voice, required this.speed});
 }

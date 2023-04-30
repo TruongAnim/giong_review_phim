@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:ffi';
 
 import 'package:get/get.dart';
+import 'package:giongreviewphim/models/convert_job.dart';
 import 'package:giongreviewphim/page_router.dart';
 import 'package:http/http.dart' as http;
 
@@ -27,7 +28,7 @@ class ContentController extends GetxController {
     _speed.value = speed;
   }
 
-  void processing(String text) async {
+  Future<bool> processing(String text) async {
     text = text.trim();
     if (text.isEmpty) {
       Get.showSnackbar(const GetSnackBar(
@@ -35,10 +36,10 @@ class ContentController extends GetxController {
         message: 'Paste your content to text field above.',
         duration: Duration(seconds: 2),
       ));
-      return;
+      return false;
     }
     _state.value = ContentState.processing;
-    await Future.delayed(const Duration(seconds: 30));
+    await Future.delayed(const Duration(seconds: 3));
     Map<String, String> result = await requestFptAi(text);
     if (result.containsKey('error')) {
       Get.showSnackbar(GetSnackBar(
@@ -46,12 +47,16 @@ class ContentController extends GetxController {
         message: result['error'],
         duration: const Duration(seconds: 2),
       ));
+      _state.value = ContentState.ready;
+      return false;
     } else {
       String url = result['url']!;
       await waitUntilLinkIsAccessible(url);
-      Get.toNamed(PageRouter.resultScreen, arguments: {'url': url});
+      Get.toNamed(PageRouter.resultScreen,
+          arguments: {'job': ConvertJob(url: url, speed: speed, voice: voice)});
+      _state.value = ContentState.ready;
+      return true;
     }
-    _state.value = ContentState.ready;
   }
 
   Future<Map<String, String>> requestFptAi(String text) async {

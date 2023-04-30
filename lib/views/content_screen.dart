@@ -1,6 +1,3 @@
-import 'dart:convert';
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:giongreviewphim/common_widgets/dropdown_button.dart';
@@ -10,8 +7,7 @@ import 'package:giongreviewphim/components/background.dart';
 import 'package:giongreviewphim/components/blur_widget.dart';
 import 'package:giongreviewphim/constants.dart';
 import 'package:giongreviewphim/controllers/content_controller.dart';
-import 'package:giongreviewphim/models/convert_job.dart';
-import 'package:http/http.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:rive/rive.dart';
 
 class ContentScreen extends StatefulWidget {
@@ -25,6 +21,7 @@ class _ContentScreenState extends State<ContentScreen> {
   late RiveAnimationController _btnAnimationColtroller;
   late ContentController _contentController;
   late TextEditingController _editingController;
+  bool isSignInDialogShown = false;
 
   @override
   void initState() {
@@ -55,8 +52,15 @@ class _ContentScreenState extends State<ContentScreen> {
                     const SizedBox(
                       height: 30,
                     ),
+                    Text(
+                      "Giọng Review Phim",
+                      style: GoogleFonts.ubuntu(
+                        textStyle: const TextStyle(fontSize: 30, height: 1.2),
+                      ),
+                    ),
+                    const SizedBox(height: 16),
                     Container(
-                      height: MediaQuery.of(context).size.height * 0.6,
+                      height: MediaQuery.of(context).size.height * 0.5,
                       child: BlurWidget(
                         borderRadius: BorderRadius.circular(25),
                         child: TextField(
@@ -104,13 +108,22 @@ class _ContentScreenState extends State<ContentScreen> {
                       height: 20,
                     ),
                     AnimatedBtn(
-                      btnAnimationColtroller: _btnAnimationColtroller,
-                      press: () async {
-                        _btnAnimationColtroller.isActive = true;
-                        await Future.delayed(const Duration(seconds: 1));
-                        _contentController.processing(_editingController.text);
-                      },
-                    ),
+                        btnAnimationColtroller: _btnAnimationColtroller,
+                        press: () async {
+                          _btnAnimationColtroller.isActive = true;
+                          // await Future.delayed(const Duration(seconds: 1));
+                          await Future.delayed(
+                              const Duration(milliseconds: 800));
+                          bool isOke = await _contentController
+                              .processing(_editingController.text);
+                          if (isOke) {
+                            setState(() {
+                              isSignInDialogShown = true;
+                            });
+                          }
+                          // We made it but
+                          // also need to set it false once the dialog close
+                        }),
                     const SizedBox(
                       height: 30,
                     ),
