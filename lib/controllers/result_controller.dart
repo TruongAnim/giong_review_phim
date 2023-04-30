@@ -7,7 +7,5 @@ class ResultController extends GetxController {
     _job = job;
   }
 
-  String get url => _job.url;
-  String get speed => _job.speed;
-  String get voice => _job.voice;
+  ConvertJob get job => _job;
 }

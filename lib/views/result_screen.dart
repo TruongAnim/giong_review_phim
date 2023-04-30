@@ -32,20 +32,20 @@ class _ResultScreenState extends State<ResultScreen> {
     double h = MediaQuery.of(context).size.height;
     return Background(
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 25),
+        padding: const EdgeInsets.symmetric(horizontal: 25),
         child: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             BlurWidget(
               borderRadius: BorderRadius.circular(25),
               child: Container(
                 height: h * 0.5,
-                child: AudioPlayerWidget(url: _resultController.url),
+                child: AudioPlayerWidget(job: _resultController.job),
               ),
             ),
-            DownloadScreen(url: _resultController.url),
+            DownloadScreen(url: _resultController.job.url),
           ],
         ),
       ),

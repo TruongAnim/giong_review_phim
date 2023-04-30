@@ -2,7 +2,9 @@ import 'dart:convert';
 import 'dart:ffi';
 
 import 'package:get/get.dart';
+import 'package:giongreviewphim/constants.dart';
 import 'package:giongreviewphim/models/convert_job.dart';
+import 'package:giongreviewphim/models/options.dart';
 import 'package:giongreviewphim/page_router.dart';
 import 'package:http/http.dart' as http;
 
@@ -10,22 +12,24 @@ enum ContentState { ready, processing }
 
 class ContentController extends GetxController {
   final Rx<ContentState> _state = Rx<ContentState>(ContentState.ready);
-  final Rx<String> _voice = Rx<String>('banmai');
-  final Rx<String> _speed = Rx<String>('0');
+  final Rx<int> _voice = Rx<int>(0);
+  final Rx<int> _speed = Rx<int>(0);
 
   final String apiKey = 'onSMw1mVr07YCxpxuWhXVNtLrh7hJPTS';
   final String apiEndpoint = 'https://api.fpt.ai/hmi/tts/v5';
 
   ContentState get state => _state.value;
-  String get voice => _voice.value;
-  String get speed => _speed.value;
+  String get voice => Constants.voice[_voice.value].value;
+  String get speed => Constants.speed[_speed.value].value;
 
   void updateVoice(String voice) {
-    _voice.value = voice;
+    _voice.value =
+        Constants.voice.indexWhere((Option element) => element.value == voice);
   }
 
   void updateSpeed(String speed) {
-    _speed.value = speed;
+    _speed.value =
+        Constants.speed.indexWhere((Option element) => element.value == speed);
   }
 
   Future<bool> processing(String text) async {
@@ -52,8 +56,9 @@ class ContentController extends GetxController {
     } else {
       String url = result['url']!;
       await waitUntilLinkIsAccessible(url);
-      Get.toNamed(PageRouter.resultScreen,
-          arguments: {'job': ConvertJob(url: url, speed: speed, voice: voice)});
+      Get.toNamed(PageRouter.resultScreen, arguments: {
+        'job': ConvertJob(url: url, speed: _speed.value, voice: _voice.value)
+      });
       _state.value = ContentState.ready;
       return true;
     }

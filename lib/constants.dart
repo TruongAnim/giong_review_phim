@@ -9,10 +9,10 @@ class Constants {
     Option(text: 'Gia Huy', value: 'giahuy'),
   ];
   static List<Option> speed = [
+    Option(text: 'Bình thường', value: '0'),
     Option(text: 'Rất chậm', value: '-3'),
     Option(text: 'Chậm', value: '-2'),
     Option(text: 'Hơi chậm', value: '-1'),
-    Option(text: 'Bình thường', value: '0'),
     Option(text: 'Hơi nhanh', value: '1'),
     Option(text: 'Nhanh', value: '2'),
     Option(text: 'Rất nhanh', value: '3'),

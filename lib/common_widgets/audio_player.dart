@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:giongreviewphim/constants.dart';
+import 'package:giongreviewphim/models/convert_job.dart';
 import 'package:giongreviewphim/utils.dart';
 
 class AudioPlayerWidget extends StatefulWidget {
-  final String url;
+  final ConvertJob job;
 
-  const AudioPlayerWidget({Key? key, required this.url}) : super(key: key);
+  const AudioPlayerWidget({Key? key, required this.job}) : super(key: key);
 
   @override
   _AudioPlayerWidgetState createState() => _AudioPlayerWidgetState();
@@ -13,7 +15,7 @@ class AudioPlayerWidget extends StatefulWidget {
 
 class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
   late AudioPlayer _audioPlayer;
-  Duration _duration = const Duration();
+  Duration _duration = const Duration(seconds: 1);
   Duration _position = const Duration();
   bool _isPlaying = false;
 
@@ -21,7 +23,7 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
   void initState() {
     super.initState();
     _audioPlayer = AudioPlayer();
-    _audioPlayer.setSource(UrlSource(widget.url));
+    _audioPlayer.setSource(UrlSource(widget.job.url));
     _audioPlayer.onDurationChanged.listen((Duration duration) {
       setState(() {
         _duration = duration;
@@ -48,7 +50,7 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
   }
 
   void _play() async {
-    await _audioPlayer.play(UrlSource(widget.url));
+    await _audioPlayer.play(UrlSource(widget.job.url));
   }
 
   void _pause() async {
@@ -68,10 +70,17 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
             child: Stack(
               alignment: Alignment.center,
               children: [
-                CircularProgressIndicator(
-                  value: _position.inSeconds / _duration.inSeconds,
-                  backgroundColor: Colors.grey[300],
-                  valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+                SizedBox(
+                  width: 100, // set the width of the SizedBox
+                  height: 100,
+                  child: CircularProgressIndicator(
+                    value: _position.inSeconds / _duration.inSeconds,
+                    backgroundColor: Colors.grey[300],
+                    strokeWidth: 6, // adjust the thickness of the ring
+
+                    valueColor:
+                        const AlwaysStoppedAnimation<Color>(Colors.blue),
+                  ),
                 ),
                 IconButton(
                   iconSize: 64,
@@ -94,7 +103,7 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
         Padding(
           padding: EdgeInsets.symmetric(vertical: 16),
           child: Text(
-            "Song Title",
+            'Giọng đọc ${Constants.voice[widget.job.voice].text}',
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 18,
@@ -102,7 +111,7 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
           ),
         ),
         Text(
-          "Artist Name",
+          'Tốc độ ${Constants.speed[widget.job.speed].text}',
           style: TextStyle(
             color: Colors.grey[600],
           ),
@@ -111,7 +120,7 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Padding(
-              padding: EdgeInsets.only(left: 16),
+              padding: const EdgeInsets.only(left: 16),
               child: Text(
                 "0:00",
                 style: TextStyle(
@@ -132,41 +141,13 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(right: 16),
+              padding: const EdgeInsets.only(right: 16),
               child: Text(
                 Utils.durationToString(_duration),
                 style: TextStyle(
                   color: Colors.grey[600],
                 ),
               ),
-            ),
-          ],
-        ),
-      ],
-    );
-
-    Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Text('${_position.inSeconds} / ${_duration.inSeconds} seconds'),
-        Slider(
-          value: _position.inSeconds.toDouble(),
-          min: 0,
-          max: _duration.inSeconds.toDouble(),
-          onChanged: (double value) {
-            _seekTo(Duration(seconds: value.toInt()));
-          },
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            IconButton(
-              icon: const Icon(Icons.play_arrow),
-              onPressed: _isPlaying ? null : _play,
-            ),
-            IconButton(
-              icon: const Icon(Icons.pause),
-              onPressed: _isPlaying ? _pause : null,
             ),
           ],
         ),

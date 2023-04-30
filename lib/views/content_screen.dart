@@ -116,11 +116,6 @@ class _ContentScreenState extends State<ContentScreen> {
                               const Duration(milliseconds: 800));
                           bool isOke = await _contentController
                               .processing(_editingController.text);
-                          if (isOke) {
-                            setState(() {
-                              isSignInDialogShown = true;
-                            });
-                          }
                           // We made it but
                           // also need to set it false once the dialog close
                         }),
