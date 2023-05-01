@@ -6,9 +6,13 @@ class AnimatedBtn extends StatelessWidget {
     Key? key,
     required rive.RiveAnimationController btnAnimationColtroller,
     required this.press,
+    required this.text,
+    required this.icon,
   })  : _btnAnimationColtroller = btnAnimationColtroller,
         super(key: key);
 
+  final String text;
+  final Widget icon;
   final rive.RiveAnimationController _btnAnimationColtroller;
   final VoidCallback press;
 
@@ -44,14 +48,11 @@ class AnimatedBtn extends StatelessWidget {
                     borderRadius: BorderRadius.circular(24)),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    Icon(
-                      Icons.keyboard_double_arrow_right,
-                      color: Colors.white,
-                    ),
+                  children: [
+                    icon,
                     SizedBox(width: 8),
                     Text(
-                      "Convert to audio",
+                      text,
                       style: TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: 16,

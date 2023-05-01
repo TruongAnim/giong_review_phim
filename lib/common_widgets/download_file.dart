@@ -1,8 +1,11 @@
 import 'dart:io';
 import 'package:android_path_provider/android_path_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:giongreviewphim/components/animated_btn.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
+import 'package:rive/rive.dart';
 
 class DownloadScreen extends StatefulWidget {
   final String url;
@@ -14,12 +17,19 @@ class DownloadScreen extends StatefulWidget {
 }
 
 class _DownloadScreenState extends State<DownloadScreen> {
+  late RiveAnimationController _btnAnimationColtroller;
   String _localPath = '';
   late bool _downloading;
   late String _downloadMessage;
 
   @override
   void initState() {
+    _btnAnimationColtroller = OneShotAnimation(
+      "active",
+      autoplay: false,
+      // Let's restart the app again
+      // No amination
+    );
     super.initState();
     _downloading = false;
     _downloadMessage = '';
@@ -85,20 +95,31 @@ class _DownloadScreenState extends State<DownloadScreen> {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          if (_localPath == null)
-            Text(_downloadMessage)
-          else if (_downloading)
-            CircularProgressIndicator()
-          else
-            Text(_downloadMessage),
-          IconButton(
-              onPressed:
-                  _localPath == null ? null : () => _downloadFile(widget.url),
-              icon: Icon(Icons.file_download))
-        ],
+      child: AnimatedBtn(
+        text: 'Download',
+        icon: !_downloading
+            ? const Icon(
+                Icons.download,
+                color: Colors.white,
+              )
+            : const SizedBox(
+                width: 30,
+                height: 30,
+                child: CircularProgressIndicator(
+                  color: Colors.white,
+                ),
+              ),
+        btnAnimationColtroller: _btnAnimationColtroller,
+        press: () async {
+          _btnAnimationColtroller.isActive = true;
+          await Future.delayed(const Duration(milliseconds: 800));
+          await _downloadFile(widget.url);
+          Get.showSnackbar(GetSnackBar(
+            title: _downloadMessage.startsWith('Error') ? 'Error!' : 'Success!',
+            message: _downloadMessage,
+            duration: const Duration(seconds: 2),
+          ));
+        },
       ),
     );
   }

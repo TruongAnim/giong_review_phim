@@ -108,17 +108,21 @@ class _ContentScreenState extends State<ContentScreen> {
                       height: 20,
                     ),
                     AnimatedBtn(
-                        btnAnimationColtroller: _btnAnimationColtroller,
-                        press: () async {
-                          _btnAnimationColtroller.isActive = true;
-                          // await Future.delayed(const Duration(seconds: 1));
-                          await Future.delayed(
-                              const Duration(milliseconds: 800));
-                          bool isOke = await _contentController
-                              .processing(_editingController.text);
-                          // We made it but
-                          // also need to set it false once the dialog close
-                        }),
+                      text: "Convert to audio",
+                      icon: Icon(
+                        Icons.keyboard_double_arrow_right,
+                        color: Colors.white,
+                      ),
+                      btnAnimationColtroller: _btnAnimationColtroller,
+                      press: () async {
+                        _btnAnimationColtroller.isActive = true;
+                        await Future.delayed(const Duration(milliseconds: 800));
+                        bool isOke = await _contentController
+                            .processing(_editingController.text);
+                        // We made it but
+                        // also need to set it false once the dialog close
+                      },
+                    ),
                     const SizedBox(
                       height: 30,
                     ),

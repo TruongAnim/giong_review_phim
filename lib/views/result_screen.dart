@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:giongreviewphim/common_widgets/audio_player.dart';
+import 'package:giongreviewphim/common_widgets/copy_link.dart';
 import 'package:giongreviewphim/common_widgets/download_file.dart';
 import 'package:giongreviewphim/common_widgets/player_layout.dart';
 import 'package:giongreviewphim/components/background.dart';
@@ -36,7 +37,7 @@ class _ResultScreenState extends State<ResultScreen> {
         child: Column(
           children: [
             const SizedBox(
-              height: 30,
+              height: 50,
             ),
             BlurWidget(
               borderRadius: BorderRadius.circular(25),
@@ -45,7 +46,15 @@ class _ResultScreenState extends State<ResultScreen> {
                 child: AudioPlayerWidget(job: _resultController.job),
               ),
             ),
+            Spacer(),
             DownloadScreen(url: _resultController.job.url),
+            const SizedBox(
+              height: 15,
+            ),
+            CopyLink(url: _resultController.job.url),
+            const SizedBox(
+              height: 50,
+            ),
           ],
         ),
       ),
