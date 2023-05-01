@@ -59,6 +59,9 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
 
   void _seekTo(Duration position) async {
     await _audioPlayer.seek(position);
+    if (_audioPlayer.state == PlayerState.completed) {
+      _play();
+    }
   }
 
   @override
@@ -74,7 +77,7 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
                   width: 100, // set the width of the SizedBox
                   height: 100,
                   child: CircularProgressIndicator(
-                    value: _position.inSeconds / _duration.inSeconds,
+                    value: _position.inMilliseconds / _duration.inMilliseconds,
                     backgroundColor: Colors.grey[300],
                     strokeWidth: 6, // adjust the thickness of the ring
 
@@ -101,10 +104,10 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
           ),
         ),
         Padding(
-          padding: EdgeInsets.symmetric(vertical: 16),
+          padding: const EdgeInsets.symmetric(vertical: 16),
           child: Text(
             'Giọng đọc ${Constants.voice[widget.job.voice].text}',
-            style: TextStyle(
+            style: const TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 18,
             ),
@@ -130,11 +133,11 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
             ),
             Expanded(
               child: Slider(
-                value: _position.inSeconds.toDouble(),
+                value: _position.inMilliseconds.toDouble(),
                 min: 0,
-                max: _duration.inSeconds.toDouble(),
+                max: _duration.inMilliseconds.toDouble(),
                 onChanged: (value) {
-                  _seekTo(Duration(seconds: value.toInt()));
+                  _seekTo(Duration(milliseconds: value.toInt()));
                 },
                 activeColor: Colors.blue,
                 inactiveColor: Colors.grey[300],

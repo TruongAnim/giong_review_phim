@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:giongreviewphim/common_widgets/audio_player.dart';
 import 'package:giongreviewphim/common_widgets/copy_link.dart';
 import 'package:giongreviewphim/common_widgets/download_file.dart';
-import 'package:giongreviewphim/common_widgets/player_layout.dart';
 import 'package:giongreviewphim/components/background.dart';
 import 'package:giongreviewphim/components/blur_widget.dart';
 import 'package:giongreviewphim/controllers/result_controller.dart';
