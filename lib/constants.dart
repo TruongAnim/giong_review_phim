@@ -25,7 +25,7 @@ class Constants {
 
   static const String apiKey = '6QM7JU6XWxx2WVnxB5VHEw7ESGgj3RUZ';
   static const String apiUrl = 'https://api.fpt.ai/hmi/tts/v5';
-  static const int maxLength = 150;
+  static const int maxLength = 2500;
 }
 
 const Color backgroundColor2 = Color(0xFF17203A);

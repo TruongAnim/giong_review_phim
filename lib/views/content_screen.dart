@@ -9,7 +9,7 @@ import 'package:giongreviewphim/components/custom_textfield.dart';
 import 'package:giongreviewphim/constants.dart';
 import 'package:giongreviewphim/controllers/content_controller.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:rive/rive.dart';
+import 'package:rive/rive.dart' as rive;
 
 class ContentScreen extends StatefulWidget {
   const ContentScreen({super.key});
@@ -19,14 +19,14 @@ class ContentScreen extends StatefulWidget {
 }
 
 class _ContentScreenState extends State<ContentScreen> {
-  late RiveAnimationController _btnAnimationColtroller;
+  late rive.RiveAnimationController _btnAnimationColtroller;
   late ContentController _contentController;
   late TextEditingController _editingController;
   bool isSignInDialogShown = false;
 
   @override
   void initState() {
-    _btnAnimationColtroller = OneShotAnimation(
+    _btnAnimationColtroller = rive.OneShotAnimation(
       "active",
       autoplay: false,
       // Let's restart the app again
@@ -53,17 +53,24 @@ class _ContentScreenState extends State<ContentScreen> {
                     const SizedBox(
                       height: 30,
                     ),
-                    BlurWidget(
-                      borderRadius: BorderRadius.circular(25),
-                      child: Padding(
-                        padding: const EdgeInsets.all(4.0),
-                        child: Text(
-                          "  Giọng Review Phim  ",
-                          style: GoogleFonts.roboto(
-                            fontSize: 30,
-                            color: const Color(0xFF1ABC9C),
-                            fontWeight: FontWeight.bold,
-                          ),
+                    Container(
+                      width: double.infinity,
+                      height: 50,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(25),
+                        gradient: const LinearGradient(
+                          colors: [Color(0xffe7537e), Color(0xfff79168)],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                        ),
+                      ),
+                      child: Text(
+                        "Giọng Review Phim",
+                        style: GoogleFonts.roboto(
+                          fontSize: 30,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),

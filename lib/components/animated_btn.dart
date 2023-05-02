@@ -50,10 +50,10 @@ class AnimatedBtn extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     icon,
-                    SizedBox(width: 8),
+                    const SizedBox(width: 8),
                     Text(
                       text,
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: 16,
                           color: Colors.white),

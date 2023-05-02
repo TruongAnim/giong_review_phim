@@ -51,7 +51,6 @@ class ContentController extends GetxController {
       return false;
     }
     _state.value = ContentState.processing;
-    await Future.delayed(const Duration(seconds: 3));
     Map<String, String> result = await requestFptAi(text);
     if (result.containsKey('error')) {
       Get.showSnackbar(GetSnackBar(
