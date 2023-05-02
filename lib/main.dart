@@ -17,6 +17,7 @@ class MyApp extends StatelessWidget {
       darkTheme: ThemeData.dark(),
       getPages: PageRouter.listPage,
       initialRoute: PageRouter.contentScreen,
+      debugShowCheckedModeBanner: false,
     );
   }
 }
