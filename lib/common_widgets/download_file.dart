@@ -1,10 +1,12 @@
 import 'dart:io';
 import 'package:android_path_provider/android_path_provider.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:giongreviewphim/components/animated_btn.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
+import 'package:permission_handler/permission_handler.dart';
 import 'package:rive/rive.dart';
 
 class DownloadScreen extends StatefulWidget {
@@ -33,20 +35,14 @@ class _DownloadScreenState extends State<DownloadScreen> {
     super.initState();
     _downloading = false;
     _downloadMessage = '';
-    _getLocalPath();
   }
 
   Future<void> _getLocalPath() async {
     final directory = await _getSavedDir();
     if (directory != null) {
-      setState(() {
-        _localPath = directory;
-        print(_localPath);
-      });
+      _localPath = directory;
     } else {
-      setState(() {
-        _downloadMessage = 'Unable to access external storage';
-      });
+      print('Unable to access external storage');
     }
   }
 
@@ -113,12 +109,38 @@ class _DownloadScreenState extends State<DownloadScreen> {
         press: () async {
           _btnAnimationColtroller.isActive = true;
           await Future.delayed(const Duration(milliseconds: 800));
-          await _downloadFile(widget.url);
-          Get.showSnackbar(GetSnackBar(
-            title: _downloadMessage.startsWith('Error') ? 'Error!' : 'Success!',
-            message: _downloadMessage,
-            duration: const Duration(seconds: 2),
-          ));
+          if (Platform.isAndroid) {
+            AndroidDeviceInfo androidInfo =
+                await DeviceInfoPlugin().androidInfo;
+            print('Android SDK version: ${androidInfo.version.sdkInt}');
+            if (androidInfo.version.sdkInt > 29) {
+              Get.showSnackbar(
+                const GetSnackBar(
+                  title: 'Permission Error',
+                  message: 'Do not support on Android  version > 10',
+                  duration: Duration(seconds: 2),
+                ),
+              );
+              return;
+            }
+          }
+          var status = await Permission.storage.request();
+          if (status == PermissionStatus.granted) {
+            await _getLocalPath();
+            await _downloadFile(widget.url);
+            Get.showSnackbar(GetSnackBar(
+              title:
+                  _downloadMessage.startsWith('Error') ? 'Error!' : 'Success!',
+              message: _downloadMessage,
+              duration: const Duration(seconds: 2),
+            ));
+          } else {
+            Get.showSnackbar(const GetSnackBar(
+              title: 'Permission denied',
+              message: 'Need storage permission to download files.',
+              duration: Duration(seconds: 2),
+            ));
+          }
         },
       ),
     );

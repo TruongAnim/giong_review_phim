@@ -28,7 +28,7 @@ class _BackgroundState extends State<Background> {
           Positioned(
             // height: 100,
             width: MediaQuery.of(context).size.width * 1.3,
-            bottom: 275,
+            top: 0,
             left: -15,
             child: Image.asset("assets/Backgrounds/Spline.png"),
           ),

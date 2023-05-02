@@ -39,6 +39,8 @@ dependencies:
   rive: ^0.9.1
   flutter_svg: ^1.1.6
   google_fonts: ^4.0.4
+  permission_handler: ^10.2.0
+  device_info_plus: ^8.2.2
 
 dev_dependencies:
   flutter_test:

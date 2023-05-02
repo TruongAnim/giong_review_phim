@@ -45,14 +45,14 @@ class _ResultScreenState extends State<ResultScreen> {
                 child: AudioPlayerWidget(job: _resultController.job),
               ),
             ),
-            Spacer(),
+            const Spacer(),
             DownloadScreen(url: _resultController.job.url),
             const SizedBox(
               height: 15,
             ),
             CopyLink(url: _resultController.job.url),
             const SizedBox(
-              height: 50,
+              height: 70,
             ),
           ],
         ),
