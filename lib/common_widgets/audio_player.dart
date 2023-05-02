@@ -106,7 +106,7 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 16),
           child: Text(
-            'Giọng đọc ${Constants.voice[widget.job.voice].text}',
+            Constants.voice[widget.job.voice].text,
             style: const TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 18,

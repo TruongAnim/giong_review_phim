@@ -30,6 +30,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         textAlign: TextAlign.start,
         controller: widget._editingController,
         style: const TextStyle(fontSize: 18),
+        autofocus: false,
         expands: true,
         maxLines: null, // allows for unlimited lines
         maxLength: Constants.maxLength,

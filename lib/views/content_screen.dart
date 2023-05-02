@@ -118,10 +118,15 @@ class _ContentScreenState extends State<ContentScreen> {
                       ),
                       btnAnimationColtroller: _btnAnimationColtroller,
                       press: () async {
+                        final FocusScopeNode currentScope =
+                            FocusScope.of(context);
+                        if (!currentScope.hasPrimaryFocus &&
+                            currentScope.hasFocus) {
+                          FocusManager.instance.primaryFocus?.unfocus();
+                        }
                         _btnAnimationColtroller.isActive = true;
                         await Future.delayed(const Duration(milliseconds: 800));
-                        bool isOke = await _contentController
-                            .processing(_editingController.text);
+                        _contentController.processing(_editingController.text);
                         // We made it but
                         // also need to set it false once the dialog close
                       },
