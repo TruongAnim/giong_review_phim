@@ -108,15 +108,15 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
           child: Text(
             Constants.voice[widget.job.voice].text,
             style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 18,
-            ),
+                fontWeight: FontWeight.bold,
+                fontSize: 18,
+                color: Colors.black87),
           ),
         ),
         Text(
           'Tốc độ ${Constants.speed[widget.job.speed].text}',
           style: TextStyle(
-            color: Colors.grey[600],
+            color: Colors.grey[800],
           ),
         ),
         Row(
