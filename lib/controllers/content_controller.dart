@@ -15,7 +15,7 @@ class ContentController extends GetxController {
   final Rx<int> _voice = Rx<int>(0);
   final Rx<int> _speed = Rx<int>(0);
 
-  final String apiKey = 'onSMw1mVr07YCxpxuWhXVNtLrh7hJPTS';
+  final String apiKey = '6QM7JU6XWxx2WVnxB5VHEw7ESGgj3RUZ';
   final String apiEndpoint = 'https://api.fpt.ai/hmi/tts/v5';
 
   ContentState get state => _state.value;
@@ -38,6 +38,14 @@ class ContentController extends GetxController {
       Get.showSnackbar(const GetSnackBar(
         title: 'Content is empty!',
         message: 'Paste your content to text field above.',
+        duration: Duration(seconds: 2),
+      ));
+      return false;
+    }
+    if (text.length > Constants.maxLength) {
+      Get.showSnackbar(const GetSnackBar(
+        title: 'Content is too long',
+        message: 'Please enter less than ${Constants.maxLength} characters',
         duration: Duration(seconds: 2),
       ));
       return false;

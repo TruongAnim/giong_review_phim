@@ -5,6 +5,7 @@ import 'package:giongreviewphim/common_widgets/loading_overlay.dart';
 import 'package:giongreviewphim/components/animated_btn.dart';
 import 'package:giongreviewphim/components/background.dart';
 import 'package:giongreviewphim/components/blur_widget.dart';
+import 'package:giongreviewphim/components/custom_textfield.dart';
 import 'package:giongreviewphim/constants.dart';
 import 'package:giongreviewphim/controllers/content_controller.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -52,10 +53,18 @@ class _ContentScreenState extends State<ContentScreen> {
                     const SizedBox(
                       height: 30,
                     ),
-                    Text(
-                      "Giọng Review Phim",
-                      style: GoogleFonts.ubuntu(
-                        textStyle: const TextStyle(fontSize: 30, height: 1.2),
+                    BlurWidget(
+                      borderRadius: BorderRadius.circular(25),
+                      child: Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: Text(
+                          "  Giọng Review Phim  ",
+                          style: GoogleFonts.roboto(
+                            fontSize: 30,
+                            color: const Color(0xFF1ABC9C),
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ),
                     ),
                     const SizedBox(height: 16),
@@ -63,21 +72,8 @@ class _ContentScreenState extends State<ContentScreen> {
                       height: MediaQuery.of(context).size.height * 0.5,
                       child: BlurWidget(
                         borderRadius: BorderRadius.circular(25),
-                        child: TextField(
-                          textAlign: TextAlign.start,
-                          controller: _editingController,
-                          expands: true,
-                          maxLines: null, // allows for unlimited lines
-                          keyboardType: TextInputType
-                              .multiline, // allows for multiline input
-                          decoration: InputDecoration(
-                            hintText:
-                                'Enter your text here', // placeholder text
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(25),
-                            ), // add an outline border
-                          ),
-                        ),
+                        child: CustomTextField(
+                            editingController: _editingController),
                       ),
                     ),
                     const SizedBox(
@@ -109,7 +105,7 @@ class _ContentScreenState extends State<ContentScreen> {
                     ),
                     AnimatedBtn(
                       text: "Convert to audio",
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.keyboard_double_arrow_right,
                         color: Colors.white,
                       ),
