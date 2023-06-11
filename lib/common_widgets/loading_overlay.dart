@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class LoadingOverlay extends StatelessWidget {
   final bool isLoading;
@@ -30,16 +31,16 @@ class LoadingOverlay extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Center(
+                children: [
+                  const Center(
                     child: CircularProgressIndicator(),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 30,
                   ),
                   Text(
-                    'Đang chuyển đổi giọng nói...',
-                    style: TextStyle(
+                    "processing".tr,
+                    style: const TextStyle(
                         fontSize: 20,
                         color: Colors.blue,
                         fontWeight: FontWeight.bold),

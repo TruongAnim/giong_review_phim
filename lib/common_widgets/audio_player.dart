@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:get/get.dart';
 import 'package:giongreviewphim/constants.dart';
 import 'package:giongreviewphim/models/convert_job.dart';
 import 'package:giongreviewphim/utils.dart';
@@ -106,7 +107,7 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 16),
           child: Text(
-            Constants.voice[widget.job.voice].text,
+            Constants.voice[widget.job.voice].getText(),
             style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
@@ -114,7 +115,7 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
           ),
         ),
         Text(
-          'Tốc độ ${Constants.speed[widget.job.speed].text}',
+          '${"speed".tr} ${Constants.speed[widget.job.speed].getText()}',
           style: TextStyle(
             color: Colors.grey[800],
           ),

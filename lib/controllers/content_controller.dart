@@ -18,8 +18,8 @@ class ContentController extends GetxController {
   final String apiEndpoint = 'https://api.fpt.ai/hmi/tts/v5';
 
   ContentState get state => _state.value;
-  String get voice => Constants.voice[_voice.value].value;
-  String get speed => Constants.speed[_speed.value].value;
+  String get voice => Constants.voice[_voice.value].value.tr;
+  String get speed => Constants.speed[_speed.value].value.tr;
 
   void updateVoice(String voice) {
     _voice.value =
@@ -34,18 +34,20 @@ class ContentController extends GetxController {
   Future<bool> processing(String text) async {
     text = text.trim();
     if (text.isEmpty) {
-      Get.showSnackbar(const GetSnackBar(
-        title: 'Content is empty!',
-        message: 'Paste your content to text field above.',
-        duration: Duration(seconds: 2),
+      Get.showSnackbar(GetSnackBar(
+        title: "empty-content".tr,
+        message: "please-enter-content".tr,
+        duration: const Duration(seconds: 2),
       ));
       return false;
     }
     if (text.length > Constants.maxLength) {
-      Get.showSnackbar(const GetSnackBar(
-        title: 'Content is too long',
-        message: 'Please enter less than ${Constants.maxLength} characters',
-        duration: Duration(seconds: 2),
+      Get.showSnackbar(GetSnackBar(
+        title: "content-is-too-long".tr,
+        message: "please-enter-below"
+            .tr
+            .replaceAll('2500', Constants.maxLength.toString()),
+        duration: const Duration(seconds: 2),
       ));
       return false;
     }
@@ -53,7 +55,7 @@ class ContentController extends GetxController {
     Map<String, String> result = await requestFptAi(text);
     if (result.containsKey('error')) {
       Get.showSnackbar(GetSnackBar(
-        title: 'Convert fail!',
+        title: "failed".tr,
         message: result['error'],
         duration: const Duration(seconds: 2),
       ));

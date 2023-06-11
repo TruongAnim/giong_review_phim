@@ -43,7 +43,7 @@ class _DownloadScreenState extends State<DownloadScreen> {
   Widget build(BuildContext context) {
     return Center(
       child: AnimatedBtn(
-        text: 'Download',
+        text: "save-file".tr,
         icon: !_downloading
             ? const Icon(
                 Icons.download,

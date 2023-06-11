@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:path/path.dart' as path;
 
@@ -19,12 +20,12 @@ class DownloadService {
           //   double progress = (received / total * 100);
           // }
         });
-        return 'Success!!!:File downloaded to $savePath';
+        return '${"success".tr}:${"file-saved".tr} $savePath';
       } else {
-        return 'Error!!!:Permission to access storage denied. Downloading requires storage permission.';
+        return '${"assets-denied".tr}:${"get-permission"}.tr';
       }
     } catch (e) {
-      return 'Error!!!:$e';
+      return '${"error"}:$e';
     }
   }
 }

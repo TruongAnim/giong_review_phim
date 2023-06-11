@@ -65,7 +65,7 @@ class _ContentScreenState extends State<ContentScreen> {
                         ),
                       ),
                       child: Text(
-                        "Giọng Review Phim",
+                        "app-title".tr,
                         style: GoogleFonts.roboto(
                           fontSize: 30,
                           color: Colors.white,
@@ -110,7 +110,7 @@ class _ContentScreenState extends State<ContentScreen> {
                       height: 20,
                     ),
                     AnimatedBtn(
-                      text: "Convert to audio",
+                      text: "create-voice-reading".tr,
                       icon: const Icon(
                         Icons.keyboard_double_arrow_right,
                         color: Colors.white,

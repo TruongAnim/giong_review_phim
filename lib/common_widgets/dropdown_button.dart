@@ -27,7 +27,7 @@ class _DropdownOptionsState extends State<DropdownOptions> {
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                item.text,
+                item.getText(),
                 style: const TextStyle(
                   fontSize: 14,
                 ),

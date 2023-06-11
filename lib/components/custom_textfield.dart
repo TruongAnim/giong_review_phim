@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:giongreviewphim/constants.dart';
 
 class CustomTextField extends StatefulWidget {
@@ -35,7 +36,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         maxLength: Constants.maxLength,
         keyboardType: TextInputType.multiline, // allows for multiline input
         decoration: InputDecoration(
-          hintText: 'Enter your text here', // placeholder text
+          hintText: "enter-content".tr, // placeholder text
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(25),
           ), // add an outline border

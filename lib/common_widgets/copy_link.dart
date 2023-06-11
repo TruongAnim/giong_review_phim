@@ -29,7 +29,7 @@ class _CopyLinkState extends State<CopyLink> {
   Widget build(BuildContext context) {
     return Center(
       child: AnimatedBtn(
-        text: 'Copy MP3 link',
+        text: "copy-link".tr,
         icon: const Icon(
           Icons.copy,
           color: Colors.white,
@@ -39,9 +39,9 @@ class _CopyLinkState extends State<CopyLink> {
           _btnAnimationColtroller.isActive = true;
           await Future.delayed(const Duration(milliseconds: 800));
           Clipboard.setData(ClipboardData(text: widget.url)).then((_) {
-            Get.showSnackbar(const GetSnackBar(
-              title: 'Success!!!',
-              message: 'Copied download link to clipboard',
+            Get.showSnackbar(GetSnackBar(
+              title: "success".tr,
+              message: "link-copied".tr,
               duration: Duration(seconds: 2),
             ));
           });
