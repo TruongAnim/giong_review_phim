@@ -40,7 +40,7 @@ class _CopyLinkState extends State<CopyLink> {
           await Future.delayed(const Duration(milliseconds: 800));
           Clipboard.setData(ClipboardData(text: widget.url)).then((_) {
             Get.showSnackbar(const GetSnackBar(
-              title: 'Success',
+              title: 'Success!!!',
               message: 'Copied download link to clipboard',
               duration: Duration(seconds: 2),
             ));

@@ -32,7 +32,6 @@ class _ContentScreenState extends State<ContentScreen> {
       // Let's restart the app again
       // No amination
     );
-    // TODO: implement initState
     super.initState();
     _contentController = Get.find();
     _editingController = TextEditingController();
@@ -51,7 +50,7 @@ class _ContentScreenState extends State<ContentScreen> {
                 child: Column(
                   children: [
                     const SizedBox(
-                      height: 30,
+                      height: 40,
                     ),
                     Container(
                       width: double.infinity,
@@ -75,7 +74,7 @@ class _ContentScreenState extends State<ContentScreen> {
                       ),
                     ),
                     const SizedBox(height: 16),
-                    Container(
+                    SizedBox(
                       height: MediaQuery.of(context).size.height * 0.5,
                       child: BlurWidget(
                         borderRadius: BorderRadius.circular(25),
@@ -127,8 +126,6 @@ class _ContentScreenState extends State<ContentScreen> {
                         _btnAnimationColtroller.isActive = true;
                         await Future.delayed(const Duration(milliseconds: 800));
                         _contentController.processing(_editingController.text);
-                        // We made it but
-                        // also need to set it false once the dialog close
                       },
                     ),
                     const SizedBox(

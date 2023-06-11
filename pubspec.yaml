@@ -35,12 +35,12 @@ dependencies:
     sdk: flutter
   get: ^4.6.5
   http: ^0.13.5
-  path_provider: ^2.0.11
   rive: ^0.9.1
   flutter_svg: ^1.1.6
   google_fonts: ^4.0.4
   permission_handler: ^10.2.0
-  device_info_plus: ^8.2.2
+  dio: ^5.2.1
+  path: ^1.8.2
 
 dev_dependencies:
   flutter_test:

@@ -1,18 +1,13 @@
-import 'dart:io';
-import 'package:android_path_provider/android_path_provider.dart';
-import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:giongreviewphim/components/animated_btn.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:http/http.dart' as http;
-import 'package:permission_handler/permission_handler.dart';
+import 'package:giongreviewphim/controllers/result_controller.dart';
 import 'package:rive/rive.dart';
 
 class DownloadScreen extends StatefulWidget {
   final String url;
 
-  DownloadScreen({Key? key, required this.url}) : super(key: key);
+  const DownloadScreen({Key? key, required this.url}) : super(key: key);
 
   @override
   _DownloadScreenState createState() => _DownloadScreenState();
@@ -20,72 +15,28 @@ class DownloadScreen extends StatefulWidget {
 
 class _DownloadScreenState extends State<DownloadScreen> {
   late RiveAnimationController _btnAnimationColtroller;
-  String _localPath = '';
+  final ResultController _controller = Get.find();
   late bool _downloading;
-  late String _downloadMessage;
 
   @override
   void initState() {
     _btnAnimationColtroller = OneShotAnimation(
       "active",
       autoplay: false,
-      // Let's restart the app again
-      // No amination
     );
     super.initState();
     _downloading = false;
-    _downloadMessage = '';
   }
 
-  Future<void> _getLocalPath() async {
-    final directory = await _getSavedDir();
-    if (directory != null) {
-      _localPath = directory;
-    } else {
-      print('Unable to access external storage');
-    }
-  }
-
-  Future<String?> _getSavedDir() async {
-    String? externalStorageDirPath;
-
-    if (Platform.isAndroid) {
-      try {
-        externalStorageDirPath = await AndroidPathProvider.downloadsPath;
-      } catch (err, st) {
-        print('failed to get downloads path: $err, $st');
-
-        final directory = await getExternalStorageDirectory();
-        externalStorageDirPath = directory?.path;
-      }
-    } else if (Platform.isIOS) {
-      externalStorageDirPath =
-          (await getApplicationDocumentsDirectory()).absolute.path;
-    }
-    return externalStorageDirPath;
-  }
-
-  Future<void> _downloadFile(String url) async {
-    setState(() {
-      _downloading = true;
-      _downloadMessage = 'Downloading file...';
-    });
-    try {
-      final response = await http.get(Uri.parse(url));
-      final filename = Uri.parse(url).pathSegments.last;
-      final path = '$_localPath/$filename';
-      final file = File(path);
-      await file.writeAsBytes(response.bodyBytes);
-      setState(() {
-        _downloading = false;
-        _downloadMessage = 'File saved to $_localPath';
-      });
-    } catch (e) {
-      setState(() {
-        _downloading = false;
-        _downloadMessage = 'Error downloading file: $e';
-      });
-    }
+  _download() async {
+    _btnAnimationColtroller.isActive = true;
+    await Future.delayed(const Duration(milliseconds: 800));
+    String result = await _controller.download(widget.url);
+    Get.showSnackbar(GetSnackBar(
+      title: result.split(':')[0],
+      message: result.split(':')[1],
+      duration: const Duration(seconds: 2),
+    ));
   }
 
   @override
@@ -106,42 +57,7 @@ class _DownloadScreenState extends State<DownloadScreen> {
                 ),
               ),
         btnAnimationColtroller: _btnAnimationColtroller,
-        press: () async {
-          _btnAnimationColtroller.isActive = true;
-          await Future.delayed(const Duration(milliseconds: 800));
-          if (Platform.isAndroid) {
-            AndroidDeviceInfo androidInfo =
-                await DeviceInfoPlugin().androidInfo;
-            print('Android SDK version: ${androidInfo.version.sdkInt}');
-            if (androidInfo.version.sdkInt > 29) {
-              Get.showSnackbar(
-                const GetSnackBar(
-                  title: 'Permission Error',
-                  message: 'Do not support on Android  version > 10',
-                  duration: Duration(seconds: 2),
-                ),
-              );
-              return;
-            }
-          }
-          var status = await Permission.storage.request();
-          if (status == PermissionStatus.granted) {
-            await _getLocalPath();
-            await _downloadFile(widget.url);
-            Get.showSnackbar(GetSnackBar(
-              title:
-                  _downloadMessage.startsWith('Error') ? 'Error!' : 'Success!',
-              message: _downloadMessage,
-              duration: const Duration(seconds: 2),
-            ));
-          } else {
-            Get.showSnackbar(const GetSnackBar(
-              title: 'Permission denied',
-              message: 'Need storage permission to download files.',
-              duration: Duration(seconds: 2),
-            ));
-          }
-        },
+        press: _download,
       ),
     );
   }

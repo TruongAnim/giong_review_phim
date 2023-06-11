@@ -16,7 +16,6 @@ class CustomTextField extends StatefulWidget {
 class _CustomTextFieldState extends State<CustomTextField> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     widget._editingController.addListener(() {
       setState(() {});

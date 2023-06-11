@@ -19,7 +19,6 @@ class _ResultScreenState extends State<ResultScreen> {
   late ResultController _resultController;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _resultController = Get.find();
     data = Get.arguments;
@@ -28,7 +27,6 @@ class _ResultScreenState extends State<ResultScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double w = MediaQuery.of(context).size.width;
     double h = MediaQuery.of(context).size.height;
     return Background(
       child: Container(
@@ -40,7 +38,7 @@ class _ResultScreenState extends State<ResultScreen> {
             ),
             BlurWidget(
               borderRadius: BorderRadius.circular(25),
-              child: Container(
+              child: SizedBox(
                 height: h * 0.5,
                 child: AudioPlayerWidget(job: _resultController.job),
               ),

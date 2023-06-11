@@ -1,12 +1,9 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:giongreviewphim/constants.dart';
-import 'package:giongreviewphim/controllers/content_controller.dart';
 import 'package:giongreviewphim/models/options.dart';
 
 class DropdownOptions extends StatefulWidget {
-  DropdownOptions(
+  const DropdownOptions(
       {Key? key,
       required this.value,
       required this.options,
@@ -21,9 +18,9 @@ class DropdownOptions extends StatefulWidget {
 
 class _DropdownOptionsState extends State<DropdownOptions> {
   List<DropdownMenuItem<String>> _addDividersAfterItems(List<Option> items) {
-    List<DropdownMenuItem<String>> _menuItems = [];
+    List<DropdownMenuItem<String>> menuItems = [];
     for (var item in items) {
-      _menuItems.addAll(
+      menuItems.addAll(
         [
           DropdownMenuItem<String>(
             value: item.value,
@@ -49,21 +46,21 @@ class _DropdownOptionsState extends State<DropdownOptions> {
         ],
       );
     }
-    return _menuItems;
+    return menuItems;
   }
 
   List<double> _getCustomItemsHeights() {
-    List<double> _itemsHeights = [];
+    List<double> itemsHeights = [];
     for (var i = 0; i < (widget.options.length * 2) - 1; i++) {
       if (i.isEven) {
-        _itemsHeights.add(40);
+        itemsHeights.add(40);
       }
       //Dividers indexes will be the odd indexes
       if (i.isOdd) {
-        _itemsHeights.add(4);
+        itemsHeights.add(4);
       }
     }
-    return _itemsHeights;
+    return itemsHeights;
   }
 
   @override
