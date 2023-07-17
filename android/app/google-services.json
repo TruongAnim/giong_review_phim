@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "696380550748",
+    "project_id": "giongreviewphim",
+    "storage_bucket": "giongreviewphim.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:696380550748:android:0dbbb6b1181912ce9b8099",
+        "android_client_info": {
+          "package_name": "com.truonganim.giongreviewphim"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "696380550748-n907bo64htdugf4sj98bphcf4h2rg49t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBw43DrGvRXJQhUDYsUBzA8bHCkpMwiO7M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "696380550748-n907bo64htdugf4sj98bphcf4h2rg49t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
