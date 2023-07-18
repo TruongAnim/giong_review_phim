@@ -5,6 +5,7 @@ import 'package:giongreviewphim/constants.dart';
 import 'package:giongreviewphim/models/convert_job.dart';
 import 'package:giongreviewphim/models/options.dart';
 import 'package:giongreviewphim/page_router.dart';
+import 'package:giongreviewphim/services/firebase_config_service.dart';
 import 'package:http/http.dart' as http;
 
 enum ContentState { ready, processing }
@@ -14,12 +15,19 @@ class ContentController extends GetxController {
   final Rx<int> _voice = Rx<int>(0);
   final Rx<int> _speed = Rx<int>(0);
 
-  final String apiKey = '6QM7JU6XWxx2WVnxB5VHEw7ESGgj3RUZ';
-  final String apiEndpoint = 'https://api.fpt.ai/hmi/tts/v5';
+  String apiKey = '';
 
   ContentState get state => _state.value;
   String get voice => Constants.voice[_voice.value].value.tr;
   String get speed => Constants.speed[_speed.value].value.tr;
+
+  @override
+  void onInit() async {
+    super.onInit();
+    apiKey = await FirebaseConfigService.instance
+            .getConfig('api_key', 'fpt_ai_key') ??
+        '';
+  }
 
   void updateVoice(String voice) {
     _voice.value =
@@ -76,7 +84,7 @@ class ContentController extends GetxController {
     Map<String, String> result = {};
     try {
       final response = await http.post(
-        Uri.parse(apiEndpoint),
+        Uri.parse(Constants.apiUrl),
         headers: {
           'api-key': apiKey,
           'speed': speed,

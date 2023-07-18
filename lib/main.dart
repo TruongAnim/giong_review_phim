@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:giongreviewphim/page_router.dart';
@@ -8,6 +9,7 @@ import 'package:giongreviewphim/services/translations_service.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final translationService = TranslationService();
+  await Firebase.initializeApp();
   await translationService.init();
   runApp(MyApp(
     translationService: translationService,
